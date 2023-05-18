@@ -1,0 +1,33 @@
+Sub CATMain()
+    
+    Dim oEditor As Editor
+    Set oEditor = CATIA.ActiveEditor
+                 
+    ' Get search service object
+    Dim oPLMProductService As PLMProductService
+    Set oPLMProductService = oEditor.GetService("PLMProductService")
+    
+    
+    Dim oRootOcc As VPMRootOccurrence
+    Set oRootOcc = oPLMProductService.RootOccurrence
+    
+    ' Set type of object to query
+    Dim oRootRef As VPMReference
+    Set oRootRef = oRootOcc.ReferenceRootOccurrenceOf
+    
+    ' Name of Part Product
+    Dim sVNameRootRef As String
+    sVNameRootRef = oRootRef.GetAttributeValue("V_Name")
+    
+    Dim path As String
+    path = "C:\Users\rbhatta\Desktop\" & sVNameRootRef & ".stp"
+    
+    Set WshShell = CreateObject("WScript.Shell")
+    Set oExec = WshShell.Exec("clip")
+
+    Set oWrite = oExec.stdIn
+
+    oWrite.WriteLine sVNameRootRef
+    oWrite.Close
+
+End Sub

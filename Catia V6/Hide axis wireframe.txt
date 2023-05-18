@@ -1,0 +1,29 @@
+Sub CATMain()
+
+Dim editor1 As Editor
+Set editor1 = CATIA.ActiveEditor
+
+Dim selection1 As Selection
+Set selection1 = editor1.Selection
+
+selection1.Search "CATPrtSearch.Wireframe,all"
+Set visPropertySet1 = selection1.VisProperties
+visPropertySet1.SetShow 1
+
+selection1.Search "CATPrtSearch.AxisSystem,all"
+Set visPropertySet1 = selection1.VisProperties
+visPropertySet1.SetShow 1
+
+selection1.Search "CATPrtSearch.Point,all"
+Set visPropertySet1 = selection1.VisProperties
+visPropertySet1.SetShow 1
+
+selection1.Search "CATPrtSearch.Sketch,all"
+Set visPropertySet1 = selection1.VisProperties
+visPropertySet1.SetShow 1
+
+selection1.Search "CATPrtSearch.Plane,all"
+Set visPropertySet1 = selection1.VisProperties
+visPropertySet1.SetShow 1
+
+End Sub

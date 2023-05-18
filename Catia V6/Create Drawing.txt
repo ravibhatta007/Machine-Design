@@ -1,0 +1,32 @@
+Sub CATMain()
+    Dim oEditor As Editor
+    Set oEditor = CATIA.ActiveEditor
+    
+    ' Get search service object
+    Dim oPLMProductService As PLMProductService
+    Set oPLMProductService = CATIA.GetSessionService("PLMProductService")
+    
+    Dim oRootOcc As VPMRootOccurrence
+    Set oRootOcc = oPLMProductService.RootOccurrence
+    
+    ' Set type of object to query
+    Dim oRootRef As VPMReference
+    Set oRootRef = oRootOcc.ReferenceRootOccurrenceOf
+       
+    'Retrieving the PLMNewService Object
+    Dim oPLMNewService As PLMNewService
+    Set oPLMNewService = CATIA.GetSessionService("PLMNewService")
+    
+    
+    oPLMNewService.SetAttributeValue "V_Name", oRootRef.GetAttributeValue("V_Name")
+    oPLMNewService.PLMCreate "Drawing", oEditor
+    
+    'Get active window
+    Dim oMy3DPartWindowToClose As Window
+    Set oMy3DPartWindowToClose = CATIA.ActiveWindow
+
+    'Close 3DPart window
+    oMy3DPartWindowToClose.Close
+
+    
+End Sub
