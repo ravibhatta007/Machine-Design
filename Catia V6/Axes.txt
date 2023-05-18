@@ -1,0 +1,101 @@
+Sub CATMain()
+
+Dim editor1 As Editor
+Set editor1 = CATIA.ActiveEditor
+
+Dim part1 As Part
+Set part1 = editor1.ActiveObject
+
+Dim hybridShapeFactory1 As HybridShapeFactory
+Set hybridShapeFactory1 = part1.HybridShapeFactory
+
+Dim axisSystems1 As AxisSystems
+Set axisSystems1 = part1.AxisSystems
+
+Dim axisSystem1 As AxisSystem
+Set axisSystem1 = axisSystems1.Item("Absolute Axis System")
+
+'X axis
+Dim reference1 As Reference
+Set reference1 = part1.CreateReferenceFromBRepName("REdge:(Edge:(Face:(Brp:(AxisSystem.1;1);None:();Cf12:());Face:(Brp:(AxisSystem.1;3);None:();Cf12:());None:(Limits1:();Limits2:());Cf12:());WithPermanentBody;WithoutBuildError;WithSelectingFeatureSupport;MFBRepVersion_CXR29)", axisSystem1)
+
+Dim hybridShapeDirection1 As HybridShapeDirection
+Set hybridShapeDirection1 = hybridShapeFactory1.AddNewDirection(reference1)
+
+Dim reference2 As Reference
+Set reference2 = part1.CreateReferenceFromBRepName("FVertex:(Vertex:(Neighbours:(Face:(Brp:(AxisSystem.1;2);None:();Cf12:());Face:(Brp:(AxisSystem.1;3);None:();Cf12:());Face:(Brp:(AxisSystem.1;1);None:();Cf12:()));Cf12:());WithPermanentBody;WithoutBuildError;WithSelectingFeatureSupport;MFBRepVersion_CXR29)", axisSystem1)
+
+Dim hybridShapeLinePtDir1 As HybridShapeLinePtDir
+Set hybridShapeLinePtDir1 = hybridShapeFactory1.AddNewLinePtDir(reference2, hybridShapeDirection1, 0#, 5#, False)
+
+Dim hybridBodies1 As HybridBodies
+Set hybridBodies1 = part1.HybridBodies
+
+Dim hybridBody1 As HybridBody
+Set hybridBody1 = hybridBodies1.Item("Geometrical Set.1")
+
+hybridBody1.AppendHybridShape hybridShapeLinePtDir1
+
+part1.InWorkObject = hybridShapeLinePtDir1
+
+'part1.Update
+
+'Y axis
+Dim reference3 As Reference
+Set reference3 = part1.CreateReferenceFromBRepName("REdge:(Edge:(Face:(Brp:(AxisSystem.1;2);None:();Cf12:());Face:(Brp:(AxisSystem.1;1);None:();Cf12:());None:(Limits1:();Limits2:());Cf12:());WithPermanentBody;WithoutBuildError;WithSelectingFeatureSupport;MFBRepVersion_CXR29)", axisSystem1)
+
+Dim hybridShapeDirection2 As HybridShapeDirection
+Set hybridShapeDirection2 = hybridShapeFactory1.AddNewDirection(reference3)
+
+Dim reference4 As Reference
+Set reference4 = part1.CreateReferenceFromBRepName("FVertex:(Vertex:(Neighbours:(Face:(Brp:(AxisSystem.1;2);None:();Cf12:());Face:(Brp:(AxisSystem.1;3);None:();Cf12:());Face:(Brp:(AxisSystem.1;1);None:();Cf12:()));Cf12:());WithPermanentBody;WithoutBuildError;WithSelectingFeatureSupport;MFBRepVersion_CXR29)", axisSystem1)
+
+Dim hybridShapeLinePtDir2 As HybridShapeLinePtDir
+Set hybridShapeLinePtDir2 = hybridShapeFactory1.AddNewLinePtDir(reference4, hybridShapeDirection2, 0#, 5#, False)
+
+Dim hybridBodies2 As HybridBodies
+Set hybridBodies2 = part1.HybridBodies
+
+Dim hybridBody2 As HybridBody
+Set hybridBody2 = hybridBodies2.Item("Geometrical Set.1")
+
+hybridBody2.AppendHybridShape hybridShapeLinePtDir2
+
+
+part1.InWorkObject = hybridShapeLinePtDir2
+
+'Z axis
+Dim reference5 As Reference
+Set reference5 = part1.CreateReferenceFromBRepName("REdge:(Edge:(Face:(Brp:(AxisSystem.1;3);None:();Cf12:());Face:(Brp:(AxisSystem.1;2);None:();Cf12:());None:(Limits1:();Limits2:());Cf12:());WithPermanentBody;WithoutBuildError;WithSelectingFeatureSupport;MFBRepVersion_CXR29)", axisSystem1)
+
+Dim hybridShapeDirection3 As HybridShapeDirection
+Set hybridShapeDirection3 = hybridShapeFactory1.AddNewDirection(reference5)
+
+Dim reference6 As Reference
+Set reference6 = part1.CreateReferenceFromBRepName("FVertex:(Vertex:(Neighbours:(Face:(Brp:(AxisSystem.1;2);None:();Cf12:());Face:(Brp:(AxisSystem.1;3);None:();Cf12:());Face:(Brp:(AxisSystem.1;1);None:();Cf12:()));Cf12:());WithPermanentBody;WithoutBuildError;WithSelectingFeatureSupport;MFBRepVersion_CXR29)", axisSystem1)
+
+Dim hybridShapeLinePtDir3 As HybridShapeLinePtDir
+Set hybridShapeLinePtDir3 = hybridShapeFactory1.AddNewLinePtDir(reference6, hybridShapeDirection3, 0#, 5#, False)
+
+Dim hybridBodies3 As HybridBodies
+Set hybridBodies3 = part1.HybridBodies
+
+Dim hybridBody3 As HybridBody
+Set hybridBody3 = hybridBodies3.Item("Geometrical Set.1")
+
+hybridBody3.AppendHybridShape hybridShapeLinePtDir3
+
+part1.InWorkObject = hybridShapeLinePtDir3
+
+Dim selection1 As Selection
+Set selection1 = editor1.Selection
+selection1.Search "CATPrtSearch.Line,all"
+Dim selection2 As Selection
+Set visPropertySet1 = selection1.VisProperties
+visPropertySet1.SetShow 1
+selection1.Clear
+
+
+part1.Update
+
+End Sub
